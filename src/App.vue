@@ -1,13 +1,24 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <div>HOLA</div>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <div>
+    <EasyComments
+      :config=config
+    ></EasyComments>
+  </div>
 </template>
 
 <script>
+import EasyComments from './components/EasyComments.vue';
+
 export default {
   name: 'App',
   components: {
-
+    EasyComments
+  },
+  data(){
+    return{
+      config: {idName: "id", commentName:"texto"}
+    }
   }
 }
 </script>
