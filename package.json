@@ -25,7 +25,6 @@
     "build-lib": "vue-cli-service build --target lib --name vue-easy-comments src/main.js"
   },
   "dependencies": {
-    "bootstrap": "^5.2.3",
     "core-js": "^3.8.3",
     "vue": "^3.2.13"
   },
