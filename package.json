@@ -1,10 +1,25 @@
 {
-  "name": "vue-easy-comments",
+  "name": "@kengo98/vue-easy-comments",
+  "description": "A simple vuejs plugin to add comments",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "./dist/vue-easy-comments.common.js",
+  "files": [
+    "dist/*",
+    "src/components/*"
+  ],
+  "author": {
+    "name": "Kengo Nakamura",
+    "email": "kengonc98@gmail.com"
+  },
+  "repository": "https://github.com/kengo98/vue-easy-comments",
+    "bugs": "https://github.com/kengo98/vue-easy-comments/issues",
+    "keywords": ["comments", "vue"],
+    "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "build-lib": "vue-cli-service build --target lib --name vue-easy-comments src/main.js"
   },
   "dependencies": {
     "core-js": "^3.8.3",
