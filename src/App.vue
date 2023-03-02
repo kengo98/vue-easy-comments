@@ -1,8 +1,8 @@
 <template>
   <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-  <div>
+  <div class="easy-comments">
     <EasyComments
-      :config=config
+      :attrNameConfig=attrNameConfig
     ></EasyComments>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {
   },
   data(){
     return{
-      config: {idName: "id", commentName:"texto"}
+      attrNameConfig: {idAttrName: "id", textAttrName:"texto"}
     }
   }
 }
@@ -25,11 +25,11 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
+}
+
+.easy-comments{
+    width: 80%;
+    margin: 0 auto;
 }
 </style>

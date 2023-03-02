@@ -9,7 +9,7 @@ import useCommentsService from "./useCommentsService"
 const useEasyComments = () => {
 
     const {
-        config,
+        attrNameConfig,
         comments,
         commentsLoaded,
         commentInput,
@@ -31,7 +31,7 @@ const useEasyComments = () => {
     }
 
     const loadComments = async() => {
-        nameConfig.value = config.value
+        nameConfig.value = attrNameConfig.value
         await service_loadComments(comments, commentsLoaded)
     }
 
@@ -49,7 +49,7 @@ const useEasyComments = () => {
 
     return {
         //atributes
-        config,
+        attrNameConfig,
         commentInput,
         comments,
         commentsLoaded,
