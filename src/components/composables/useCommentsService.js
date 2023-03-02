@@ -1,16 +1,19 @@
 
 //encargada de conectarse con la base de datos
 import useCommentsDataHandler from "./useCommentsDataHandler"
-import {ref} from 'vue'
+import axios from 'axios'
 
-const useCommentsService = () => {
-
-    const nameConfig = ref({})
+const useCommentsService = (nameConfig, apiConfig) => {
 
     const {
         commit_appEndNewComment,
         commit_setCommentsLoaded
     } = useCommentsDataHandler();
+
+    const api = axios.create({
+        baseURL: apiConfig.baseURL,
+        headers: apiConfig.headers
+    })
 
 
     //methods
@@ -19,17 +22,16 @@ const useCommentsService = () => {
 
         try{
 
-            const dataFromDataBase = [
-                {id: 1, texto: "4 comentario"},
-                {id: 2, texto: "5 comentario"},
-                {id: 3, texto: "6 comentario"}
-            ]
+            const {data} =  await api.get(apiConfig.endpoint)
 
-            for (let i = 0; i < dataFromDataBase.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 comments.value.push(
                     {
-                        id: dataFromDataBase[i][nameConfig.value.idName],
-                        text: dataFromDataBase[i][nameConfig.value.commentName]
+                        id: data[i][nameConfig.idName],
+                        text: data[i][nameConfig.commentName],
+                        userName : data[i][nameConfig.userName],
+                        dateCreated: data[i][nameConfig.dateCreated],
+                        userPicture: data[i][nameConfig.userPicture]
                     }
                 )
             }
@@ -48,7 +50,7 @@ const useCommentsService = () => {
             
             //preparing data
             const dataToSend = {}
-            dataToSend[nameConfig.value.commentName] = comment.value
+            dataToSend[nameConfig.commentName] = comment.value
 
             const response = {
                 comment : {id: comments.value.length+1, text: comment.value}
@@ -67,7 +69,6 @@ const useCommentsService = () => {
     }
 
     return {
-        nameConfig,
         service_loadComments,
         service_createComment
     }

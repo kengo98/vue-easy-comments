@@ -3,32 +3,35 @@
 <template>
     <div class="components-wrapper">
         <div class="comments-counter">
-            3 COMENTARIOS
+            {{ comments.length }}
+            <div v-if="comments.length<2" style="display: inline-block;"> {{ textConfig.commentCount }}</div>
+            <div v-if="comments.length>=2" style="display: inline-block;"> {{ textConfig.commentCountMany }}</div>
         </div>
         <div class="comments-wrapper">
             <div v-if="commentsLoaded">
                 <div class="comments" v-for="comment in comments" :key="comment.id">
                     <div class="top-wrapper">
                         <div class="comments-image-wrapper">
-                            <img class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
+                            <img v-if="comment.userPicture == ''" class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
+                            <img v-if="comment.userPicture != ''" class="comments-user-image" :src="comment.userPicture" alt="">
                         </div>
                         <div class="comments-text">
-                           <strong>UserName</strong> {{ comment.text }} Lorem Ipsum is simply dummy text of the printing anLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has beenLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has beenLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has beenLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has beend typesetting industry. Lorem Ipsum has been
+                           <strong>@{{ comment.userName }}</strong> {{ comment.text }} 
                         </div>
                     </div>
                     <div class="bottom-wrapper">
-                        <a class="date-texts">Sabado 20 de febrero</a><a class="botton-comments-texts">Responder</a>
+                        <a class="date-texts">{{ comment.dateCreated }}</a><a class="botton-comments-texts">{{ textConfig.reply }}</a>
                     </div>    
                 </div>
             </div>
         </div>
 
         <div class="new-comment-text">
-            Nuevo Comentario
+            {{ textConfig.newComment }}
         </div>
         <div class="comment-input-wrapper">
             <input type="text" class="comment-input" id="comment-input" v-model="commentInput">
-            <button :disabled="commentInput.length==0" class="input-button" type="button" @click="newCommentButtonPressed">Comentar</button>
+            <button :disabled="commentInput.length==0" class="input-button" type="button" @click="newCommentButtonPressed">{{ textConfig.buttonText }}</button>
         </div>
     </div>
 </template>
@@ -37,7 +40,7 @@
 <script>
 
 import useEasyComments from './composables/useEasyComments'
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 
 export default {
 
@@ -49,10 +52,49 @@ export default {
             userNameAttrName: String,
             userImgAttrName: String,
             commentDateAttrName: String
+        },
+        pluginConfig:{
+            useAPI: Boolean,
+        },
+        //if pluginConfig.useAPI = false
+        data:{
+            comments: Array
+        },
+        //if pluginConfig.useAPI = true
+        apiConfig:{
+            baseURL: String,
+            endpoint: String,        
+            headers: String,
+        },
+
+        //languageConfig
+        textConfig:{
+            reply: {
+                type: String,
+                default: "Reply"
+            },
+            commentCount: {
+                type: String,
+                default: "COMMENT"
+            },
+            commentCountMany: {
+                type: String,
+                default: "COMMENTS"
+            },
+            newComment: {
+                type: String,
+                default: "NEW COMMENT"
+            },
+            buttonText: {
+                type: String,
+                default: "Comment"
+            },
         }
     },
 
-    setup(props){
+    emits:["newComment"],
+
+    setup(props, context){
 
         const {
             //attributes
@@ -64,16 +106,45 @@ export default {
             //methods
             loadComments,
             newCommentButtonPressed
-        } = useEasyComments();
+        } = useEasyComments(props.pluginConfig, props.apiConfig);
+
         
-        const setConfig = () => {  
+        const setAttrNameConfig = () => {  
             attrNameConfig.value.idName = props.attrNameConfig?.idAttrName? props.attrNameConfig.idAttrName: "id"
             attrNameConfig.value.commentName = props.attrNameConfig?.textAttrName? props.attrNameConfig.textAttrName: "text"
+            attrNameConfig.value.userName = props.attrNameConfig?.userNameAttrName? props.attrNameConfig.userNameAttrName: "userName"
+            attrNameConfig.value.dateCreated = props.attrNameConfig?.commentDateAttrName? props.attrNameConfig.commentDateAttrName: "dateCreated"
+            attrNameConfig.value.userPicture = props.attrNameConfig?.userImgAttrName? props.attrNameConfig.userImgAttrName: "userPicture"
         }
 
+
+        const textConfig = ref({
+            reply: "Reply",
+            commentCount: "COMMENT",
+            commentCountMany: "COMMENTS",
+            newComment: "NEW COMMENT",
+            buttonText: "Comment"
+        })
+
+        const setTextConfig = () => {
+            if(!props.textConfig)
+                return   
+            textConfig.value.reply = props.textConfig.reply? props.textConfig.reply : textConfig.value.reply
+            textConfig.value.commentCount = props.textConfig.commentCount? props.textConfig.commentCount : textConfig.value.commentCount
+            textConfig.value.commentCountMany = props.textConfig.commentCountMany? props.textConfig.commentCountMany : textConfig.value.commentCountMany
+            textConfig.value.newComment = props.textConfig.newComment? props.textConfig.newComment : textConfig.value.newComment
+            textConfig.value.buttonText = props.textConfig.buttonText? props.textConfig.buttonText : textConfig.value.buttonText
+        }
+
+        
+
         onBeforeMount(async () => {
-            setConfig()
-            await loadComments();
+            setAttrNameConfig()
+            setTextConfig()
+            if(props.pluginConfig.useAPI)
+                await loadComments();
+            else
+                await loadComments(props.data.comments);
         })
 
 
@@ -83,6 +154,7 @@ export default {
             comments,
             commentsLoaded,
             commentInput,
+            textConfig,
 
             //methods
             newCommentButtonPressed
@@ -93,6 +165,13 @@ export default {
 
 
 </script>
+
+
+
+
+
+
+
 
 
 <style>

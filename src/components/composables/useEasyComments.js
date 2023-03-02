@@ -4,9 +4,10 @@
 
 import useCommentsData from "./useCommentsData";
 import useCommentsService from "./useCommentsService"
+import useCommentsActions from "./useCommentsActions";
 
 
-const useEasyComments = () => {
+const useEasyComments = (pluginConfig, apiConfig) => {
 
     const {
         attrNameConfig,
@@ -17,11 +18,17 @@ const useEasyComments = () => {
     } = useCommentsData();
 
 
+    //with useAPI = true
     const {
-        nameConfig,
         service_loadComments,
         service_createComment
-    } = useCommentsService();
+    } = useCommentsService(attrNameConfig.value, apiConfig);
+
+    //with useAPI = false
+    const {
+        action_createComment,
+        actions_loadComments
+    } = useCommentsActions(attrNameConfig.value);
 
 
     //methods
@@ -30,9 +37,14 @@ const useEasyComments = () => {
         commentInput.value = ""
     }
 
-    const loadComments = async() => {
-        nameConfig.value = attrNameConfig.value
-        await service_loadComments(comments, commentsLoaded)
+    const loadComments = async(commentsToLoad) => {
+        if(pluginConfig.useAPI){
+            await service_loadComments(comments, commentsLoaded)
+            return
+        }
+        if(commentsToLoad){
+            actions_loadComments(comments, commentsLoaded, commentsToLoad)
+        }
     }
 
     const newCommentButtonPressed = async () => {
