@@ -126,7 +126,7 @@ export default {
         width: 40px;
     }
     .comments-text{
-        width: 89%;
+        width: 72%;
         display: inline-block;
         vertical-align: top;
         text-align: left;
@@ -203,9 +203,12 @@ export default {
 
 
 
-    @media screen and (min-width: 400px) {
+    @media screen and (min-width: 420px) {
         .comment-input {
             width: 72%;
+        }
+        .comments-text{
+            width: 80%;
         }
     }
 
@@ -214,11 +217,17 @@ export default {
         .comment-input {
             width: 81%;
         }
+        .comments-text{
+            width: 86%;
+        }
     }
 
     @media screen and (min-width: 1100px) {
         .comment-input {
             width: 90%;
+        }
+        .comments-text{
+            width: 92%;
         }
     }
 
