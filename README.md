@@ -1,19 +1,56 @@
 # vue-easy-comments
 
-## Project setup
-```
-npm install
+## Installation
+
+``` sh
+$ npm install @kengo98/vue-easy-comments
+
+OR
+
+$ yarn add @kengo98/vue-easy-comments
+
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Usage
+
+### In a single component
+``` vue
+
+<template>
+    <EasyComments
+    :pluginConfig="pluginConfig"
+    :apiConfig="apiConfig"
+    >
+    </EasyComments>
+</template>
+
+<script>
+
+import EasyComments from '@kengo98/EasyComments.vue';
+
+export default {
+  name: 'App',
+  components: {
+    EasyComments
+  },
+  data(){
+    return{
+        pluginConfig: {
+            useAPI: true
+        },
+        apiConfig:{
+            baseURL: "https://my-web-page/api/v1",
+            endpoint: "/comments",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        },
+    }
+  }
+}
+</script>
+
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### To see more features
+See [Component Documentation](https://kengo98.github.io/vue-easy-comments/).

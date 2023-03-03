@@ -1,0 +1,1 @@
+export const siteData = JSON.parse("{\"base\":\"/vue-easy-comments/\",\"lang\":\"en-US\",\"title\":\"Easy Comments Doc V1.0\",\"description\":\"The easiest way to add comment functionality in your VUE application\",\"head\":[],\"locales\":{}}")
