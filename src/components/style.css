@@ -1,0 +1,159 @@
+
+.comments-counter{
+    margin-bottom: 10px;
+}
+.comments-wrapper{
+    height: 100%;
+    position: relative;
+}
+.comments{
+    padding: 10px;
+    background-color: #dedede;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.top-wrapper{
+    display: block;
+}
+.comments-image-wrapper{
+    height: 100%;
+    width: 60px;
+    display: inline-block;
+    text-align: center;
+}
+.comments-user-image{
+    display: inline-block;
+    border-radius: 50px;
+    height: 40px;
+    width: 40px;
+}
+.comments-text{
+    width: 72%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: left;
+}
+.bottom-wrapper{
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.botton-comments-texts{
+    color: #0275d8;;
+    opacity: 50%;
+}
+.botton-comments-texts:hover{
+    cursor: pointer;
+}
+.date-texts{
+    color: gray;
+    opacity: 50%;
+}
+
+
+
+
+
+
+.new-comment-text{
+    margin-top: 20px;
+}
+.components-wrapper{
+    position: relative;
+    width: 100%;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+
+}
+
+.comment-input-wrapper{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.comment-input{
+    width: 60%;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 40%);
+    border: 1px solid #ccc;
+    padding-left: 10px;
+    outline: 0;
+    background: #fff;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.input-button{
+    width: 70px;
+    height: 37px;
+    box-shadow: 0 3px 3px 0 rgb(0 0 0 / 40%);
+    margin-left: 3px;
+    background-color: #0275d8;
+    border-radius: 5px;
+    color: white;
+    border: 1px solid;
+    outline: 0;
+}
+.input-button:disabled{
+    background-color: gray;
+}
+.input-button:enabled:hover{
+    cursor: pointer;
+}
+
+
+
+
+.c-primary{
+    color: #0275d8;
+}
+
+.c-secondary{
+    color: #1bcbad;
+}
+
+.c-success{
+    color: #37ac4e;
+}
+
+.c-danger{
+    color: #b01a1a
+}
+
+.f-bold{
+    font-weight: bold;
+}
+
+
+
+
+@media screen and (min-width: 420px) {
+    .comment-input {
+        width: 72%;
+    }
+    .comments-text{
+        width: 80%;
+    }
+}
+
+
+@media screen and (min-width: 600px) {
+    .comment-input {
+        width: 81%;
+    }
+    .comments-text{
+        width: 86%;
+    }
+}
+
+@media screen and (min-width: 1100px) {
+    .comment-input {
+        width: 90%;
+    }
+    .comments-text{
+        width: 92%;
+    }
+}
+

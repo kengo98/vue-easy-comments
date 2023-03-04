@@ -48,12 +48,30 @@ const useEasyComments = (pluginConfig, apiConfig) => {
     }
 
     const newCommentButtonPressed = async () => {
-        const response = await service_createComment(comments, commentInput)
+        //two cases
+        //useApi = true (send data to server)
+
+        var response = {ok: false};
+
+        if(pluginConfig.useAPI){
+            response = await service_createComment(comments, commentInput.value)
+            return
+            console.log(response)
+        }else{
+            response = {ok: true}
+        }
+            
+        //useApi = false (save data, await for commit to show)
+        
+        
+
+
         if(response.ok){
             //show success message
             refreshInput()
         }else{
             //show error message
+            refreshInput()
         }
     }
 

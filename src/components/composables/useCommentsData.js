@@ -5,12 +5,12 @@ const useCommentsData = () => {
 
     //attributes
     const attrNameConfig = ref({
-        idName:"id", 
-        commentName: "text",
-        userName: "userName",
-        dateCreated: "dateCreated",
-        userPicture: "userPicture"
-    
+        id:"", 
+        text: "",
+        userName: "",
+        dateCreated: "",
+        userPicture: "",
+        userId : ""
     })
     const commentInput = ref("")
     const comments = ref([])

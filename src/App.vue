@@ -6,6 +6,7 @@
       :pluginConfig="pluginConfig"
       :apiConfig="apiConfig"
       :textConfig = "textConfig"
+      :currentUserId = "5"
     ></EasyComments>
   </div>
 </template>
@@ -21,11 +22,12 @@ export default {
   data(){
     return{
       attrNameConfig: {
-        idAttrName: "id",
-        textAttrName:"text", 
-        userNameAttrName: "userName",
-        userImgAttrName: "userPicture",
-        commentDateAttrName: "createdAt"
+        id: "id",
+        text:"text", 
+        userName: "userName",
+        userPicture: "userPicture",
+        dateCreated: "createdAt",
+        userId: "userId"
       },
       pluginConfig: {useAPI: true},
       // data: {
@@ -40,14 +42,25 @@ export default {
         endpoint: "/comments",
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        attrToSend: ["text", "dateCreated"],
+        customDataToSend: {
+          userId: 25, 
+        },
+        responseSetup: {
+          // onGet : ["data","comments"],
+          onPost: ["comment"]
+        },
+        // developmentMode: true
       },
       textConfig:{
         buttonText: "Comentar",
         reply: "Responder",
         commentCount: "COMENTARIO",
         commentCountMany: "COMENTARIOS",
-        newComment: "NUEVO COMENTARIO"
+        newComment: "NUEVO COMENTARIO",
+        update: "Modificar",
+        delete: "Eliminar"
       }
     }
   }

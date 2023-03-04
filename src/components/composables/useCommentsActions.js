@@ -16,11 +16,12 @@ const useCommentsActions = (nameConfig) => {
         for (let i = 0; i < commentsToLoad.length; i++) {
             comments.value.push(
                 {
-                    id: commentsToLoad[i][nameConfig.idName],
-                    text: commentsToLoad[i][nameConfig.commentName],
+                    id: commentsToLoad[i][nameConfig.id],
+                    text: commentsToLoad[i][nameConfig.text],
                     userName: commentsToLoad[i][nameConfig.userName],
                     dateCreated: commentsToLoad[i][nameConfig.dateCreated],
                     userPicture: commentsToLoad[i][nameConfig.userPicture],
+                    userId: commentsToLoad[i][nameConfig.userId],
                 }
             )
         }
