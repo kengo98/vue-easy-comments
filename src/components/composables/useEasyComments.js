@@ -7,7 +7,7 @@ import useCommentsService from "./useCommentsService"
 import useCommentsActions from "./useCommentsActions";
 
 
-const useEasyComments = (pluginConfig, apiConfig) => {
+const useEasyComments = (pluginConfig, apiConfig, context) => {
 
     const {
         attrNameConfig,
@@ -21,7 +21,8 @@ const useEasyComments = (pluginConfig, apiConfig) => {
     //with useAPI = true
     const {
         service_loadComments,
-        service_createComment
+        service_createComment,
+        service_deleteComment
     } = useCommentsService(attrNameConfig.value, apiConfig);
 
     //with useAPI = false
@@ -55,17 +56,13 @@ const useEasyComments = (pluginConfig, apiConfig) => {
 
         if(pluginConfig.useAPI){
             response = await service_createComment(comments, commentInput.value)
-            return
-            console.log(response)
         }else{
-            response = {ok: true}
+            // response = 
+            response = {ok: true} //por el momento
         }
             
         //useApi = false (save data, await for commit to show)
         
-        
-
-
         if(response.ok){
             //show success message
             refreshInput()
@@ -74,6 +71,27 @@ const useEasyComments = (pluginConfig, apiConfig) => {
             refreshInput()
         }
     }
+
+    const onDeleteResponse = async (value, comment) => {
+        if(value){
+            const res = await service_deleteComment(comments, comment)
+            if(res.ok){
+                context.emit("afterDelete")
+            }
+        }
+    }
+
+    const deleteComment = async (comment) => {
+        if(pluginConfig.customDeleteConfirm){
+            await context.emit("beforeDelete", onDeleteResponse, comment)
+        }else{
+            if(confirm("Are you sure to delete? "))
+                onDeleteResponse(true)
+            else
+                onDeleteResponse(false)
+        }
+    }
+
 
 
 
@@ -87,6 +105,7 @@ const useEasyComments = (pluginConfig, apiConfig) => {
         //methods
         loadComments,
         newCommentButtonPressed,
+        deleteComment
 
     }
 

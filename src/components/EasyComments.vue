@@ -22,7 +22,7 @@
                     <div class="bottom-wrapper">
                         <a class="date-texts">{{ comment.dateCreated }}</a>
                         <div class="comments-actions">
-                            <a v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-danger">{{ textConfig.delete+ " " }}</a>
+                            <a @click="deleteCommentButtonPressed(comment)" v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-danger">{{ textConfig.delete+ " " }}</a>
                             <a v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-success">{{ textConfig.update+ " " }}</a>
                             <a class="botton-comments-texts">{{ textConfig.reply }}</a>
                         </div>

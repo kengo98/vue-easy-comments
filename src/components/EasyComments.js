@@ -11,6 +11,7 @@ export default {
         },
         pluginConfig:{
             useAPI: Boolean,
+            customDeleteConfirm: Boolean
         },
         //if pluginConfig.useAPI = false
         data:{
@@ -62,7 +63,7 @@ export default {
         }
     },
 
-    emits:["newComment"],
+    emits:["newComment", "beforeDelete", "afterDelete"],
 
     setup(props, context){
 
@@ -75,8 +76,9 @@ export default {
 
             //methods
             loadComments,
-            newCommentButtonPressed
-        } = useEasyComments(props.pluginConfig, props.apiConfig);
+            newCommentButtonPressed,
+            deleteComment,
+        } = useEasyComments(props.pluginConfig, props.apiConfig, context);
 
         const {
             setup_attrNameConfig,
@@ -100,9 +102,6 @@ export default {
             setup_attrNameConfig(attrNameConfig, props.attrNameConfig)
         }
 
-
-        
-
         onBeforeMount(async () => {
             componentSetup()
             if(props.pluginConfig.useAPI)
@@ -110,6 +109,14 @@ export default {
             else
                 await loadComments(props.data.comments);
         })
+
+
+        const deleteCommentButtonPressed = async (comment) => {
+            await deleteComment(comment)
+        }
+
+
+
 
 
         return{
@@ -121,7 +128,8 @@ export default {
             currentUserId : props.currentUserId,
 
             //methods
-            newCommentButtonPressed
+            newCommentButtonPressed,
+            deleteCommentButtonPressed
         }
     }
 }

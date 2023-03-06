@@ -6,7 +6,9 @@
       :pluginConfig="pluginConfig"
       :apiConfig="apiConfig"
       :textConfig = "textConfig"
-      :currentUserId = "5"
+      :currentUserId = "2"
+      @beforeDelete="beforeDelete"
+      @afterDelete="afterDelete"
     ></EasyComments>
   </div>
 </template>
@@ -29,7 +31,10 @@ export default {
         dateCreated: "createdAt",
         userId: "userId"
       },
-      pluginConfig: {useAPI: true},
+      pluginConfig: {
+        useAPI: true,
+        customDeleteConfirm: true
+      },
       // data: {
       //   comments : [
       //           {id: 1, texto: "esto es un comentario"},
@@ -43,15 +48,15 @@ export default {
         headers: {
             'Content-Type': 'application/json'
         },
-        attrToSend: ["text", "dateCreated"],
+        attrToSend: ["text"],
         customDataToSend: {
-          userId: 25, 
+          userId: 2, 
         },
         responseSetup: {
           // onGet : ["data","comments"],
-          onPost: ["comment"]
+          // onPost: ["comment"]
         },
-        // developmentMode: true
+        developmentMode: true
       },
       textConfig:{
         buttonText: "Comentar",
@@ -63,6 +68,25 @@ export default {
         delete: "Eliminar"
       }
     }
+  },
+  setup(){
+
+    const beforeDelete = async (response, comment) => {
+      if(confirm("Desea eliminar? "))
+        response(true, comment)
+      else
+        response(false)
+    }
+
+    const afterDelete = () => {
+      alert("eliminado!!")
+    }
+
+    return {
+      beforeDelete,
+      afterDelete
+    }
+
   }
 }
 </script>

@@ -7,7 +7,8 @@ const useCommentsService = (nameConfig, apiConfig) => {
 
     const {
         commit_appEndNewComment,
-        commit_setCommentsLoaded
+        commit_setCommentsLoaded,
+        commit_deleteComment
     } = useCommentsDataHandler();
 
     const api = axios.create({
@@ -51,6 +52,7 @@ const useCommentsService = (nameConfig, apiConfig) => {
     }
 
     const setupNewMessage = (data) => {
+        
         var newComment = responseSetup("POST",data)
 
         return newComment = {
@@ -131,9 +133,34 @@ const useCommentsService = (nameConfig, apiConfig) => {
         }  
     }
 
+    const service_deleteComment = async (comments, comment) => {
+
+        try{
+
+            const {data} =  await api.delete(apiConfig.endpoint+"/"+comment.id)
+
+            if(apiConfig.developmentMode)
+                console.log("deleted data", data)
+            
+            commit_deleteComment(comments, comment)
+            
+            return {ok: true, message: "comment deleted"}
+        }catch(error){
+            if(apiConfig.developmentMode)
+                console.log(error)
+            return {ok: false, message: "Error ocurred"};
+        }  
+    }
+
+
+
+
+
+
     return {
         service_loadComments,
-        service_createComment
+        service_createComment,
+        service_deleteComment
     }
 
 }
