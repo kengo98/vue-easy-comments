@@ -19,12 +19,20 @@ const useCommentsData = () => {
         newComment: "",
         update: "",
         delete: "",
-        buttonText: ""
+        createButtonText: "",
+        updateButtonText: "",
+        updatingText: "", 
     })
 
     const commentInput = ref("")
     const comments = ref([])
     const commentsLoaded = ref(false)
+
+
+    const isUpdating = ref(false)
+    const commentUpdating = ref({})
+
+    const commentInputRef = ref()
 
 
 
@@ -34,6 +42,9 @@ const useCommentsData = () => {
         commentInput,
         comments,
         commentsLoaded,
+        isUpdating,
+        commentInputRef,
+        commentUpdating
     }
 
 }

@@ -23,7 +23,7 @@
                         <a class="date-texts">{{ comment.dateCreated }}</a>
                         <div class="comments-actions">
                             <a @click="deleteCommentButtonPressed(comment)" v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-danger">{{ textConfig.delete+ " " }}</a>
-                            <a v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-success">{{ textConfig.update+ " " }}</a>
+                            <a v-if="comment.userId && comment.userId == currentUserId" @click="updateCommentAction(comment)" class="botton-comments-texts c-success">{{ textConfig.update+ " " }}</a>
                             <a class="botton-comments-texts">{{ textConfig.reply }}</a>
                         </div>
                     </div>    
@@ -31,12 +31,17 @@
             </div>
         </div>
 
-        <div class="new-comment-text">
+        <div v-if="!isUpdating" class="new-comment-text">
             {{ textConfig.newComment }}
         </div>
+        <div v-if="isUpdating" class="new-comment-text">
+            {{ textConfig.updatingText }}
+        </div>
+        
         <div class="comment-input-wrapper">
-            <input type="text" class="comment-input" id="comment-input" v-model="commentInput">
-            <button :disabled="commentInput.length==0" class="input-button" type="button" @click="newCommentButtonPressed">{{ textConfig.buttonText }}</button>
+            <textarea ref="commentInputRef" class="comment-input" id="comment-input" v-model="commentInput"></textarea>
+            <button v-if="!isUpdating" :disabled="commentInput.length==0" class="input-button" type="button" @click="newCommentButtonPressed">{{ textConfig.createButtonText }}</button>
+            <button v-if="isUpdating" :disabled="commentInput.length==0" @click="updateCommentButtonPressed" class="input-button" type="button" > {{ textConfig.updateButtonText }} </button>
         </div>
     </div>
 </template>

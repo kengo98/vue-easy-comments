@@ -17,10 +17,16 @@ const useCommentsDataHandler = () => {
         comments.value.splice(index, 1);
     }
 
+    const commit_updateComment = (comments, comment) => {
+        let index = comments.value.findIndex((obj) => obj.id === comment.id)
+        comments.value.splice(index, 1, comment);
+    }
+
     return {
         commit_setCommentsLoaded,
         commit_appEndNewComment,
-        commit_deleteComment
+        commit_deleteComment,
+        commit_updateComment
     }
 
 }

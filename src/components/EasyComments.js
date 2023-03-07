@@ -57,13 +57,19 @@ export default {
             newComment: {
                 type: String
             },
-            buttonText: {
+            createButtonText: {
                 type: String
             },
+            updateButtonText: {
+                type: String
+            },
+            updatingText: {
+                type: String
+            }
         }
     },
 
-    emits:["newComment", "beforeDelete", "afterDelete"],
+    emits:["newComment", "beforeDelete", "onServerResponse"],
 
     setup(props, context){
 
@@ -74,11 +80,17 @@ export default {
             comments, 
             commentsLoaded, 
             commentInput,
+            commentInputRef,
+
+            isUpdating,
 
             //methods
             loadComments,
             newCommentButtonPressed,
             deleteCommentButtonPressed,
+            updateCommentButtonPressed,
+
+            updateCommentAction
         } = useEasyComments(props.pluginConfig, props.apiConfig, context);
 
         const {
@@ -110,11 +122,17 @@ export default {
             commentsLoaded,
             commentInput,
             textConfig,
+            commentInputRef,
             currentUserId : props.currentUserId,
+
+            isUpdating,
 
             //methods
             newCommentButtonPressed,
-            deleteCommentButtonPressed
+            deleteCommentButtonPressed,
+            updateCommentButtonPressed,
+
+            updateCommentAction
         }
     }
 }

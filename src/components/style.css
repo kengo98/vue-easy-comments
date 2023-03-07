@@ -72,6 +72,7 @@
 .comment-input-wrapper{
     text-align: center;
     margin-top: 10px;
+    display: flex;
 }
 
 .comment-input{
@@ -81,8 +82,9 @@
     padding-left: 10px;
     outline: 0;
     background: #fff;
-    height: 30px;
+    height: 60px;
     border-radius: 5px;
+
 }
 
 .input-button{

@@ -8,7 +8,7 @@
       :textConfig = "textConfig"
       :currentUserId = "2"
       @beforeDelete="beforeDelete"
-      @afterDelete="afterDelete"
+      @onServerResponse = "onServerResponse"
     ></EasyComments>
   </div>
 </template>
@@ -52,11 +52,13 @@ export default {
         developmentMode: true
       },
       textConfig:{
-        buttonText: "Comentar",
+        createButtonText: "Comentar",
+        updateButtonText: "Modificar",
         reply: "Responder",
         commentCount: "COMENTARIO",
         commentCountMany: "COMENTARIOS",
         newComment: "NUEVO COMENTARIO",
+        updatingText: "MODIFICAR: ",
         update: "Modificar",
         delete: "Eliminar"
       }
@@ -71,14 +73,13 @@ export default {
         resolve(false)
     }
 
-
-    const afterDelete = () => {
-      alert("eliminado!!")
+    const onServerResponse = (type) => {
+      alert(type)
     }
 
     return {
       beforeDelete,
-      afterDelete
+      onServerResponse
     }
 
   }

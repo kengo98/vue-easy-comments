@@ -17,9 +17,11 @@ const componentConfig = () => {
         textConfig.value.commentCount = prop.commentCount? prop.commentCount : "COMMENT"
         textConfig.value.commentCountMany = prop.commentCountMany? prop.commentCountMany : "COMMENTS"
         textConfig.value.newComment = prop.newComment? prop.newComment : "NEW COMMENT"
-        textConfig.value.buttonText = prop.buttonText? prop.buttonText : "Comment"
+        textConfig.value.createButtonText = prop.createButtonText? prop.createButtonText : "Comment"
         textConfig.value.update = prop.update? prop.update : "Update"
         textConfig.value.delete = prop.delete? prop.delete : "Delete"
+        textConfig.value.updateButtonText = prop.updateButtonText? prop.updateButtonText : "Update"
+        textConfig.value.updatingText = prop.updatingText? prop.updatingText : "UPDATING"
     }
 
     return {

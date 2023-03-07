@@ -8,7 +8,8 @@ const useCommentsService = (nameConfig, apiConfig) => {
     const {
         commit_appEndNewComment,
         commit_setCommentsLoaded,
-        commit_deleteComment
+        commit_deleteComment,
+        commit_updateComment
     } = useCommentsDataHandler();
 
     const api = axios.create({
@@ -152,6 +153,40 @@ const useCommentsService = (nameConfig, apiConfig) => {
         }  
     }
 
+    const service_updateComment = async(comments, commentObject, newComment) => {
+        try{
+            //preparing data
+            const dataToSend = {}
+            dataToSend[nameConfig.text] = newComment
+
+            Object.keys(apiConfig.customDataToSend).forEach(key => {
+                dataToSend[key] = apiConfig.customDataToSend[key]
+            });
+
+            if(apiConfig.developmentMode){
+                console.log("data to send: ", dataToSend)
+            }
+
+            const {data} =  await api.put(apiConfig.endpoint+"/"+commentObject.id, dataToSend)
+            if(apiConfig.developmentMode){
+                console.log("response from server: ", data)
+            }
+
+            var newComment = setupNewMessage(data)
+
+            //update state data
+            commit_updateComment(comments, newComment)
+
+            //return result
+            return {ok:true, comment: newComment}
+            
+        }catch(error){
+            if(apiConfig.developmentMode)
+                console.log(error)
+            return {ok: false};
+        }  
+    }
+
 
 
 
@@ -160,7 +195,8 @@ const useCommentsService = (nameConfig, apiConfig) => {
     return {
         service_loadComments,
         service_createComment,
-        service_deleteComment
+        service_deleteComment,
+        service_updateComment
     }
 
 }
