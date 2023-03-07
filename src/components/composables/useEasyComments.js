@@ -6,11 +6,11 @@ import useCommentsData from "./useCommentsData";
 import useCommentsService from "./useCommentsService"
 import useCommentsActions from "./useCommentsActions";
 
-
 const useEasyComments = (pluginConfig, apiConfig, context) => {
 
     const {
         attrNameConfig,
+        textConfig,
         comments,
         commentsLoaded,
         commentInput,
@@ -72,23 +72,27 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
         }
     }
 
-    const onDeleteResponse = async (value, comment) => {
-        if(value){
-            const res = await service_deleteComment(comments, comment)
-            if(res.ok){
-                context.emit("afterDelete")
-            }
+    const deleteCommentConfirmed = async (comment) => {
+        const res = await service_deleteComment(comments, comment)
+        if(res.ok){
+            context.emit("afterDelete")
         }
     }
 
-    const deleteComment = async (comment) => {
-        if(pluginConfig.customDeleteConfirm){
-            await context.emit("beforeDelete", onDeleteResponse, comment)
-        }else{
-            if(confirm("Are you sure to delete? "))
-                onDeleteResponse(true)
-            else
-                onDeleteResponse(false)
+    const deleteCommentButtonPressed = async (comment) => {
+        try{
+            if(pluginConfig.customDeleteConfirm){
+                await context.emit("beforeDelete", async (resolve) => {
+                    if(!resolve)
+                        return
+                    deleteCommentConfirmed(comment)
+                })
+            }else{
+                if(confirm("Are you sure to delete? "))
+                    deleteCommentConfirmed(comment)
+            }
+        }catch(error){
+            console.log(error)
         }
     }
 
@@ -98,6 +102,7 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
     return {
         //atributes
         attrNameConfig,
+        textConfig,
         commentInput,
         comments,
         commentsLoaded,
@@ -105,7 +110,7 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
         //methods
         loadComments,
         newCommentButtonPressed,
-        deleteComment
+        deleteCommentButtonPressed
 
     }
 

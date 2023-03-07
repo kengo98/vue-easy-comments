@@ -12,6 +12,16 @@ const useCommentsData = () => {
         userPicture: "",
         userId : ""
     })
+    const textConfig = ref({
+        reply: "",
+        commentCount: "",
+        commentCountMany: "",
+        newComment: "",
+        update: "",
+        delete: "",
+        buttonText: ""
+    })
+
     const commentInput = ref("")
     const comments = ref([])
     const commentsLoaded = ref(false)
@@ -20,6 +30,7 @@ const useCommentsData = () => {
 
     return {
         attrNameConfig,
+        textConfig,
         commentInput,
         comments,
         commentsLoaded,

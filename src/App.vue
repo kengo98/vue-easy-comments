@@ -35,13 +35,6 @@ export default {
         useAPI: true,
         customDeleteConfirm: true
       },
-      // data: {
-      //   comments : [
-      //           {id: 1, texto: "esto es un comentario"},
-      //           {id: 2, texto: "esto es otro comentario"},
-      //           {id: 3, texto: "commeeeeeeentario"}
-      //   ]
-      // },
       apiConfig:{
         baseURL: "https://6400eee70a2a1afebee39027.mockapi.io/api/v1",
         endpoint: "/comments",
@@ -71,12 +64,13 @@ export default {
   },
   setup(){
 
-    const beforeDelete = async (response, comment) => {
+    const beforeDelete = async (resolve) => {
       if(confirm("Desea eliminar? "))
-        response(true, comment)
+        resolve(true)
       else
-        response(false)
+        resolve(false)
     }
+
 
     const afterDelete = () => {
       alert("eliminado!!")

@@ -1,6 +1,6 @@
 
 import useEasyComments from './composables/useEasyComments'
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount } from 'vue';
 import componentConfig from './componentConfig'
 
 export default {
@@ -70,6 +70,7 @@ export default {
         const {
             //attributes
             attrNameConfig,
+            textConfig,
             comments, 
             commentsLoaded, 
             commentInput,
@@ -77,7 +78,7 @@ export default {
             //methods
             loadComments,
             newCommentButtonPressed,
-            deleteComment,
+            deleteCommentButtonPressed,
         } = useEasyComments(props.pluginConfig, props.apiConfig, context);
 
         const {
@@ -85,15 +86,6 @@ export default {
             setup_textConfig
         } = componentConfig()
 
-        const textConfig = ref({
-            reply: "",
-            commentCount: "",
-            commentCountMany: "",
-            newComment: "",
-            update: "",
-            delete: "",
-            buttonText: ""
-        })
 
         const componentSetup = () => {
             //text to show config
@@ -109,13 +101,6 @@ export default {
             else
                 await loadComments(props.data.comments);
         })
-
-
-        const deleteCommentButtonPressed = async (comment) => {
-            await deleteComment(comment)
-        }
-
-
 
 
 
