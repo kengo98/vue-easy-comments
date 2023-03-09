@@ -90,4 +90,4 @@
 
 
 <script src="./EasyComments.js"></script>
-<style src="./style.css"></style>
+<style src="../assets/style.css"></style>

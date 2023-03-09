@@ -6,7 +6,7 @@
   "main": "./dist/vue-easy-comments.common.js",
   "files": [
     "dist/*",
-    "src/components/*",
+
     "src/assets/*"
   ],
   "author": {
