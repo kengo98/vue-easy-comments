@@ -65,20 +65,23 @@
         </div>
 
         <div v-if="isResponding" class="new-comment-text">
-            {{ textConfig.respondingText }}
+            {{ textConfig.respondingText }} 
             <p>
-                <strong>@{{commentResponding.userName}}:</strong> 
+                <strong class="c-success">@{{commentResponding.userName}}:</strong> 
+                <label v-if="commentResponding.replyingTo" class="inline c-primary f-bold">
+                    @{{commentResponding.replyingTo}}
+                </label>
                 {{commentResponding.text}}     
             </p>
         </div>
         
         <div class="comment-input-wrapper">
-            <textarea ref="commentInputRef" class="comment-input" id="comment-input" v-model="commentInput"></textarea>
+            <textarea maxlength="350" ref="commentInputRef" class="comment-input" id="comment-input" v-model="commentInput"></textarea>
             <div>
                 <button v-if="!isUpdating && !isResponding" :disabled="commentInput.length==0 || sendingDataToServer" class="input-button" type="button" @click="newCommentButtonPressed">{{ textConfig.createButtonText }}</button>
                 <button v-if="isUpdating"                   :disabled="commentInput.length==0 || sendingDataToServer" @click="updateCommentButtonPressed" class="input-button" type="button" > {{ textConfig.updateButtonText }} </button>
                 <button v-if="isResponding"                 :disabled="commentInput.length==0 || sendingDataToServer" @click="responseCommentButtonPressed" class="input-button" type="button" > {{ textConfig.responseButtonText }} </button>
-                <button v-if="isResponding || isUpdating"   @click="cancelButtonPressed" class="cancel-button" type="button" > Cancelar </button>
+                <button v-if="isResponding || isUpdating"   @click="cancelButtonPressed" class="cancel-button" type="button" > {{ textConfig.cancelButtonText }} </button>
             </div>
         </div>
     </div>

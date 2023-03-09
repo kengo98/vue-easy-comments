@@ -63,7 +63,8 @@ export default {
         updatingText: "MODIFICAR: ",
         update: "Modificar",
         delete: "Eliminar",
-        respondingText: "RESPONDIENDO A:"
+        respondingText: "RESPONDIENDO A:",
+        cancelButtonText: "Cancelar"
       }
     }
   },

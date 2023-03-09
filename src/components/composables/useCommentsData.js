@@ -23,6 +23,7 @@ const useCommentsData = () => {
         createButtonText: "",
         updateButtonText: "",
         responseButtonText: "",
+        cancelButtonText: "",
         updatingText: "", 
         respondingText: "",
     })

@@ -25,6 +25,8 @@ const componentConfig = () => {
         textConfig.value.responseButtonText = prop.responseButtonText? prop.responseButtonText : "Reply"
         textConfig.value.updatingText = prop.updatingText? prop.updatingText : "UPDATING"
         textConfig.value.respondingText = prop.respondingText? prop.respondingText: "RESPONDING:"
+        textConfig.value.cancelButtonText = prop.cancelButtonText? prop.cancelButtonText: "Cancel:"
+        
     }
 
     return {
