@@ -8,6 +8,7 @@ const componentConfig = () => {
         attrNameConfig.value.dateCreated = prop?.dateCreated? prop.dateCreated: "dateCreated"
         attrNameConfig.value.userPicture = prop?.userPicture? prop.userPicture: "userPicture"
         attrNameConfig.value.userId = prop?.userId? prop.userId: "userId"
+        attrNameConfig.value.commentId = prop?.commentId? prop.commentId: "commentId"
     }
 
     const setup_textConfig = (textConfig, prop) => {
@@ -21,7 +22,9 @@ const componentConfig = () => {
         textConfig.value.update = prop.update? prop.update : "Update"
         textConfig.value.delete = prop.delete? prop.delete : "Delete"
         textConfig.value.updateButtonText = prop.updateButtonText? prop.updateButtonText : "Update"
+        textConfig.value.responseButtonText = prop.responseButtonText? prop.responseButtonText : "Reply"
         textConfig.value.updatingText = prop.updatingText? prop.updatingText : "UPDATING"
+        textConfig.value.respondingText = prop.respondingText? prop.respondingText: "RESPONDING:"
     }
 
     return {

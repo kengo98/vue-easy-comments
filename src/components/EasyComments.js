@@ -1,7 +1,8 @@
 
 import useEasyComments from './composables/useEasyComments'
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, watch } from 'vue';
 import componentConfig from './componentConfig'
+
 
 export default {
 
@@ -65,11 +66,14 @@ export default {
             },
             updatingText: {
                 type: String
+            },
+            respondingText: {
+                type: String
             }
         }
     },
 
-    emits:["newComment", "beforeDelete", "onServerResponse"],
+    emits:["newComment", "beforeDelete", "onServerResponse", "onError"],
 
     setup(props, context){
 
@@ -81,16 +85,23 @@ export default {
             commentsLoaded, 
             commentInput,
             commentInputRef,
+            commentCount,
+            sendingDataToServer,
 
             isUpdating,
+            isResponding,
+            commentResponding,
 
             //methods
             loadComments,
             newCommentButtonPressed,
             deleteCommentButtonPressed,
             updateCommentButtonPressed,
+            responseCommentButtonPressed,
+            cancelButtonPressed,
 
-            updateCommentAction
+            updateCommentAction,
+            responseCommentAction
         } = useEasyComments(props.pluginConfig, props.apiConfig, context);
 
         const {
@@ -114,8 +125,6 @@ export default {
                 await loadComments(props.data.comments);
         })
 
-
-
         return{
             //attributes
             comments,
@@ -124,15 +133,23 @@ export default {
             textConfig,
             commentInputRef,
             currentUserId : props.currentUserId,
+            commentCount,
+            sendingDataToServer,
 
             isUpdating,
+            isResponding,
+            commentResponding,
 
             //methods
             newCommentButtonPressed,
             deleteCommentButtonPressed,
             updateCommentButtonPressed,
+            responseCommentButtonPressed,
+            cancelButtonPressed,
 
-            updateCommentAction
+            updateCommentAction,
+            responseCommentAction,
+            
         }
     }
 }

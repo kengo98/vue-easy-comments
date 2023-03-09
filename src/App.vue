@@ -29,7 +29,8 @@ export default {
         userName: "userName",
         userPicture: "userPicture",
         dateCreated: "createdAt",
-        userId: "userId"
+        userId: "userId",
+        commentId: "commentId"
       },
       pluginConfig: {
         useAPI: true,
@@ -49,18 +50,20 @@ export default {
           // onGet : ["data","comments"],
           // onPost: ["comment"]
         },
-        developmentMode: true
+        // developmentMode: true
       },
       textConfig:{
         createButtonText: "Comentar",
         updateButtonText: "Modificar",
+        responseButtonText: "Responder",
         reply: "Responder",
         commentCount: "COMENTARIO",
         commentCountMany: "COMENTARIOS",
         newComment: "NUEVO COMENTARIO",
         updatingText: "MODIFICAR: ",
         update: "Modificar",
-        delete: "Eliminar"
+        delete: "Eliminar",
+        respondingText: "RESPONDIENDO A:"
       }
     }
   },

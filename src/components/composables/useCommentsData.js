@@ -1,5 +1,5 @@
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const useCommentsData = () => {
 
@@ -10,7 +10,8 @@ const useCommentsData = () => {
         userName: "",
         dateCreated: "",
         userPicture: "",
-        userId : ""
+        userId : "",
+        commentId: "",
     })
     const textConfig = ref({
         reply: "",
@@ -21,7 +22,9 @@ const useCommentsData = () => {
         delete: "",
         createButtonText: "",
         updateButtonText: "",
+        responseButtonText: "",
         updatingText: "", 
+        respondingText: "",
     })
 
     const commentInput = ref("")
@@ -31,10 +34,22 @@ const useCommentsData = () => {
 
     const isUpdating = ref(false)
     const commentUpdating = ref({})
-
     const commentInputRef = ref()
 
+    const isResponding = ref(false)
+    const commentResponding = ref({})
 
+    const sendingDataToServer = ref(false)
+
+    const commentCount = computed(() => { 
+        var count = 0
+        comments.value.forEach(comment => {
+            if(comment.responses)
+                count = count + comment.responses.length
+            count++
+        });
+        return count
+    });
 
     return {
         attrNameConfig,
@@ -44,7 +59,11 @@ const useCommentsData = () => {
         commentsLoaded,
         isUpdating,
         commentInputRef,
-        commentUpdating
+        commentUpdating,
+        isResponding,
+        commentResponding,
+        commentCount,
+        sendingDataToServer
     }
 
 }

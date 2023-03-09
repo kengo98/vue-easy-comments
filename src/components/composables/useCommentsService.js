@@ -9,7 +9,8 @@ const useCommentsService = (nameConfig, apiConfig) => {
         commit_appEndNewComment,
         commit_setCommentsLoaded,
         commit_deleteComment,
-        commit_updateComment
+        commit_updateComment,
+        commit_appEndNewResponse
     } = useCommentsDataHandler();
 
     const api = axios.create({
@@ -52,18 +53,35 @@ const useCommentsService = (nameConfig, apiConfig) => {
         }
     }
 
-    const setupNewMessage = (data) => {
-        
-        var newComment = responseSetup("POST",data)
-
-        return newComment = {
-            id: newComment[nameConfig.id],
-            text: newComment[nameConfig.text],
-            userName : newComment[nameConfig.userName],
-            dateCreated: newComment[nameConfig.dateCreated],
-            userPicture: newComment[nameConfig.userPicture],
-            userId: newComment[nameConfig.userId]
+    const pushCommentsWithConfig = (comments, dataFromServer) =>  {
+        for (let i = 0; i < dataFromServer.length; i++) {
+            comments.value.push(getCommentWithConfig(dataFromServer[i]))
         }
+    }
+
+    const getCommentWithConfig = (comment) => {
+        return{
+            id: comment[nameConfig.id],
+            text: comment[nameConfig.text],
+            userName : comment[nameConfig.userName],
+            dateCreated: comment[nameConfig.dateCreated],
+            userPicture: comment[nameConfig.userPicture],
+            userId: comment[nameConfig.userId],
+            commentId: comment[nameConfig.commentId],
+            responses: comment.responses? comment.responses: [] 
+        }
+    }
+
+    const searchParentForResponse = (comments, index) => { //recursive
+
+        if(comments.value[index].commentId == null || comments.value[index].commentId == 0){
+            return {index: index, parent: comments.value[index]}
+        }
+            
+        let i = comments.value.findIndex((obj) => obj.id === comments.value[index].commentId)
+
+        return searchParentForResponse(comments, i)
+        
     }
 
     const service_loadComments = async (comments, commentsLoaded) => {
@@ -77,17 +95,28 @@ const useCommentsService = (nameConfig, apiConfig) => {
 
             var commentsFromServer = responseSetup("GET", data)
 
-            for (let i = 0; i < data.length; i++) {
-                comments.value.push(
-                    {
-                        id: commentsFromServer[i][nameConfig.id],
-                        text: commentsFromServer[i][nameConfig.text],
-                        userName : commentsFromServer[i][nameConfig.userName],
-                        dateCreated: commentsFromServer[i][nameConfig.dateCreated],
-                        userPicture: commentsFromServer[i][nameConfig.userPicture],
-                        userId: commentsFromServer[i][nameConfig.userId]
+            pushCommentsWithConfig(comments, commentsFromServer)
+
+
+            for (let i = comments.value.length-1; i >= 0; i--) {
+                if(comments.value[i].commentId){
+                    let k = comments.value.findIndex((obj) => obj.id === comments.value[i].commentId) //al que estan respondiendo
+                    //si al que estan respondiendo es una respuesta, ponerlo en el mismo nivel
+                    if( k!= -1){
+                        if(comments.value[k].commentId == null || comments.value[k].commentId == 0){
+                            comments.value[i].replyingTo = comments.value[k].userName
+                            comments.value[k].responses.unshift(comments.value[i])
+                        }
+                        else{
+                            const {parent, index} = searchParentForResponse(comments, i)
+                            if(parent){
+                                comments.value[i].replyingTo = comments.value[k].userName
+                                comments.value[index].responses.unshift(comments.value[i])
+                            }
+                        }
+                        comments.value.splice(i, 1);
                     }
-                )
+                }
             }
 
             commit_setCommentsLoaded(commentsLoaded)
@@ -100,12 +129,14 @@ const useCommentsService = (nameConfig, apiConfig) => {
         }  
     }
 
-    const service_createComment = async (comments, comment) => {
+    const service_createComment = async (comments, comment, commentToRespond = null) => {
         try{
             //preparing data
             const dataToSend = {}
             dataToSend[nameConfig.text] = comment
             
+            dataToSend[nameConfig.commentId] = commentToRespond? commentToRespond.id: null
+
             Object.keys(apiConfig.customDataToSend).forEach(key => {
                 dataToSend[key] = apiConfig.customDataToSend[key]
             });
@@ -119,10 +150,16 @@ const useCommentsService = (nameConfig, apiConfig) => {
                 console.log("response from server: ", data)
             }
 
-            var newComment = setupNewMessage(data)
-
+            var newComment = getCommentWithConfig(data)
+    
             //update state data
-            commit_appEndNewComment(comments, newComment)
+            if(!commentToRespond)
+                commit_appEndNewComment(comments, newComment)
+            else{
+                newComment.replyingTo = commentToRespond.userName
+                commit_appEndNewResponse(comments, newComment)
+            }
+                
 
             //return result
             return {ok:true, comment: newComment}
@@ -133,6 +170,8 @@ const useCommentsService = (nameConfig, apiConfig) => {
             return {ok: false};
         }  
     }
+
+    
 
     const service_deleteComment = async (comments, comment) => {
 
@@ -172,7 +211,7 @@ const useCommentsService = (nameConfig, apiConfig) => {
                 console.log("response from server: ", data)
             }
 
-            var newComment = setupNewMessage(data)
+            var newComment = getCommentWithConfig(data)
 
             //update state data
             commit_updateComment(comments, newComment)
