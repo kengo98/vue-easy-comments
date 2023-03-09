@@ -1,12 +1,11 @@
 {
   "name": "@kengo98/vue-easy-comments",
   "description": "A simple vuejs plugin to add comments",
-  "version": "0.2.13",
+  "version": "0.2.14",
   "private": false,
   "main": "./dist/vue-easy-comments.common.js",
   "files": [
-    "dist/*",
-    "src/assets/*"
+    "dist/*"
   ],
   "author": {
     "name": "Kengo Nakamura",

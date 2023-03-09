@@ -127,6 +127,7 @@ export default {
 
         return{
             //attributes
+            noUserImg: require('@/../assets/no-user-img.jpg'),
             comments,
             commentsLoaded,
             commentInput,

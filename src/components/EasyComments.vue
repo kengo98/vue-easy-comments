@@ -13,7 +13,7 @@
                     <div class="comment-wrapper" :id="'comment_'+comment.id" tabindex="0">
                         <div class="top-wrapper">
                             <div v-if="comment.userPicture != null" class="comments-image-wrapper">
-                                <img v-if="comment.userPicture == ''" class="comments-user-image" src="../assets/js/img/no-user-img.jpg" alt="">
+                                <img v-if="comment.userPicture == ''" class="comments-user-image" :src="noUserImg" alt="">
                                 <img v-if="comment.userPicture != ''" class="comments-user-image" :src="comment.userPicture" alt="">
                             </div>
                             <div class="comments-text">
@@ -35,7 +35,7 @@
                         <div class="comments-response" v-for="response in comment.responses" :key="response.id" :id="'comment_'+response.id" tabindex="0">
                             <div class="top-wrapper">
                                 <div v-if="response.userPicture != null" class="comments-image-wrapper">
-                                    <img v-if="response.userPicture == ''" class="comments-user-image" src="../assets/js/img/no-user-img.jpg" alt="">
+                                    <img v-if="response.userPicture == ''" class="comments-user-image" :src="noUserImg" alt="">
                                     <img v-if="response.userPicture != ''" class="comments-user-image" :src="response.userPicture" alt="">
                                 </div>
                                 <div class="comments-text">
