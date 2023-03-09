@@ -35,7 +35,7 @@
                         <div class="comments-response" v-for="response in comment.responses" :key="response.id" :id="'comment_'+response.id" tabindex="0">
                             <div class="top-wrapper">
                                 <div v-if="response.userPicture != null" class="comments-image-wrapper">
-                                    <img v-if="response.userPicture == ''" class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
+                                    <img v-if="response.userPicture == ''" class="comments-user-image" src="../assets/img/no-user-img.jpg" alt="">
                                     <img v-if="response.userPicture != ''" class="comments-user-image" :src="response.userPicture" alt="">
                                 </div>
                                 <div class="comments-text">
