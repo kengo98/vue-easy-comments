@@ -44,6 +44,15 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
 
     //methods
 
+    const focusComment = (id) => {
+        var div = document.getElementById("comment_"+id.toString())
+        div.classList.add("focusable");
+        div.focus()
+        window.setTimeout(function () { 
+            div.classList.remove("focusable");
+        }, 2000); 
+    }
+
     const refreshInput = () => {
         commentInput.value = ""
         isUpdating.value = false
@@ -87,6 +96,7 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
                 //show success message
                 context.emit("onServerResponse", "created")
                 refreshInput()
+                focusComment(response.comment.id)
             }else{
                 //show error message
                 refreshInput()
@@ -140,6 +150,7 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
                 if(response.ok){
                     context.emit("onServerResponse", "updated")
                     refreshInput()
+                    focusComment(response.comment.id)
                 }
                 
             }else{
@@ -164,6 +175,7 @@ const useEasyComments = (pluginConfig, apiConfig, context) => {
                 if(response.ok){
                     context.emit("onServerResponse", "replied")
                     refreshInput()
+                    focusComment(response.comment.id)
                 }
             }else{
                 // response = 

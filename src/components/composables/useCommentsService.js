@@ -80,6 +80,10 @@ const useCommentsService = (nameConfig, apiConfig) => {
             
         let i = comments.value.findIndex((obj) => obj.id === comments.value[index].commentId)
 
+        if(i == -1){
+            return {index: index, parent: comments.value[index]}
+        }
+
         return searchParentForResponse(comments, i)
         
     }
@@ -113,9 +117,12 @@ const useCommentsService = (nameConfig, apiConfig) => {
                                 comments.value[i].replyingTo = comments.value[k].userName
                                 comments.value[index].responses.unshift(comments.value[i])
                             }
-                        }
+                        }   
+                        comments.value.splice(i, 1);
+                    }else{
                         comments.value.splice(i, 1);
                     }
+                    
                 }
             }
 

@@ -6,9 +6,9 @@
     height: 100%;
     position: relative;
 }
-/* .comments{
-
-} */
+.comments{
+    margin-top: 10px;
+}
 .comment-wrapper{
     padding: 10px;
     background-color: #dedede;
@@ -161,6 +161,32 @@
     font-weight: bold;
 }
 
+
+  .focusable {
+    transition: border-color 2s ease-in-out;
+  }
+
+  /* Add a keyframe animation to hide the border */
+  @keyframes hide-background {
+    0% { background-color: #0275d8;; }
+    100% { background-color: transparent; }
+  }
+
+  /* Add the animation to the focused element */
+  .focusable:focus {
+    background-color: #0275d8;;
+    animation: hide-background 2s forwards;
+  }
+
+
+
+@media screen and (max-width: 630px) {
+    .botton-comments-texts{
+        display: block;
+        margin-bottom: 5px;
+    }
+}
+    
 
 
 

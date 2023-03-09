@@ -10,7 +10,7 @@
         <div class="comments-wrapper">
             <div v-if="commentsLoaded">
                 <div class="comments" v-for="comment in comments" :key="comment.id">
-                    <div class="comment-wrapper">
+                    <div class="comment-wrapper" :id="'comment_'+comment.id" tabindex="0">
                         <div class="top-wrapper">
                             <div v-if="comment.userPicture != null" class="comments-image-wrapper">
                                 <img v-if="comment.userPicture == ''" class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
@@ -23,16 +23,16 @@
                         <div class="bottom-wrapper">
                             <a class="date-texts">{{ comment.dateCreated }}</a>
                             <div class="comments-actions">
-                                <a @click="deleteCommentButtonPressed(comment)" v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-danger">{{ textConfig.delete+ " " }}</a>
-                                <a v-if="comment.userId && comment.userId == currentUserId" @click="updateCommentAction(comment)" class="botton-comments-texts c-success">{{ textConfig.update+ " " }}</a>
-                                <a class="botton-comments-texts" @click="responseCommentAction(comment)">{{ textConfig.reply }}</a>
+                                <a @click="deleteCommentButtonPressed(comment)" v-if="comment.userId && comment.userId == currentUserId" class="botton-comments-texts c-danger f-bold">{{ textConfig.delete+ " " }}</a>
+                                <a v-if="comment.userId && comment.userId == currentUserId" @click="updateCommentAction(comment)" class="botton-comments-texts c-success f-bold">{{ textConfig.update+ " " }}</a>
+                                <a class="botton-comments-texts f-bold" @click="responseCommentAction(comment)">{{ textConfig.reply }}</a>
                             </div>
                         </div> 
                     </div>
                      
                     
                     <div class="response-wrapper">
-                        <div class="comments-response" v-for="response in comment.responses" :key="response.id">
+                        <div class="comments-response" v-for="response in comment.responses" :key="response.id" :id="'comment_'+response.id" tabindex="0">
                             <div class="top-wrapper">
                                 <div v-if="response.userPicture != null" class="comments-image-wrapper">
                                     <img v-if="response.userPicture == ''" class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
@@ -45,9 +45,9 @@
                             <div class="bottom-wrapper">
                                 <a class="date-texts">{{ response.dateCreated }}</a>
                                 <div class="comments-actions">
-                                    <a @click="deleteCommentButtonPressed(response)" v-if="response.userId && response.userId == currentUserId" class="botton-comments-texts c-danger">{{ textConfig.delete+ " " }}</a>
-                                    <a v-if="response.userId && response.userId == currentUserId" @click="updateCommentAction(response)" class="botton-comments-texts c-success">{{ textConfig.update+ " " }}</a>
-                                    <a class="botton-comments-texts" @click="responseCommentAction(response)">{{ textConfig.reply }}</a>
+                                    <a @click="deleteCommentButtonPressed(response)" v-if="response.userId && response.userId == currentUserId" class="botton-comments-texts c-danger f-bold">{{ textConfig.delete+ " " }}</a>
+                                    <a v-if="response.userId && response.userId == currentUserId" @click="updateCommentAction(response)" class="botton-comments-texts c-success f-bold">{{ textConfig.update+ " " }}</a>
+                                    <a class="botton-comments-texts f-bold" @click="responseCommentAction(response)">{{ textConfig.reply }}</a>
                                 </div>
                             </div>    
                         </div>

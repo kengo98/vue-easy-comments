@@ -50,7 +50,7 @@ export default {
           // onGet : ["data","comments"],
           // onPost: ["comment"]
         },
-        // developmentMode: true
+        developmentMode: true
       },
       textConfig:{
         createButtonText: "Comentar",
