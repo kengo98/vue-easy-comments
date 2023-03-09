@@ -13,7 +13,7 @@
                     <div class="comment-wrapper" :id="'comment_'+comment.id" tabindex="0">
                         <div class="top-wrapper">
                             <div v-if="comment.userPicture != null" class="comments-image-wrapper">
-                                <img v-if="comment.userPicture == ''" class="comments-user-image" src="../assets/no-user-img.jpg" alt="">
+                                <img v-if="comment.userPicture == ''" class="comments-user-image" src="../assets/img/no-user-img.jpg" alt="">
                                 <img v-if="comment.userPicture != ''" class="comments-user-image" :src="comment.userPicture" alt="">
                             </div>
                             <div class="comments-text">
