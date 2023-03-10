@@ -4,8 +4,8 @@ module.exports = defineConfig({
   chainWebpack: config => {
     config.module
       .rule('images')
-      .use('url-loader')
-      .loader('url-loader')
+      .use('file-loader')
+      .loader('file-loader')
       .tap(options => {
         if (options === undefined || options === null) {
           options = {};
