@@ -10,8 +10,8 @@ module.exports = defineConfig({
         if (options === undefined || options === null) {
           options = {};
         }
-        options.limit = 10240;
+        options.limit = Infinity;
         return options;
       });
-  }
+  },
 })
