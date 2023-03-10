@@ -12,9 +12,9 @@
                 <div class="comments" v-for="comment in comments" :key="comment.id">
                     <div class="comment-wrapper" :id="'comment_'+comment.id" tabindex="0">
                         <div class="top-wrapper">
-                            <div v-if="comment.userPicture != null" class="comments-image-wrapper">
-                                <img v-if="comment.userPicture == ''" class="comments-user-image" :src="noUserImg" alt="">
-                                <img v-if="comment.userPicture != ''" class="comments-user-image" :src="comment.userPicture" alt="">
+                            <div v-if="(comment.userPicture != '' && comment.userPicture != null) || noUserImg" class="comments-image-wrapper">
+                                <img v-if="(comment.userPicture == '' || comment.userPicture == null) && noUserImg" class="comments-user-image" :src="noUserImg" alt="">
+                                <img v-if="comment.userPicture != '' && comment.userPicture != null" class="comments-user-image" :src="comment.userPicture" alt="">
                             </div>
                             <div class="comments-text">
                             <strong>{{ comment.userName }}:</strong> {{ comment.text }} 

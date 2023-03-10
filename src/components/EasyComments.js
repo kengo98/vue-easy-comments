@@ -12,7 +12,8 @@ export default {
         },
         pluginConfig:{
             useAPI: Boolean,
-            customDeleteConfirm: Boolean
+            customDeleteConfirm: Boolean,
+            noUserImage: String
         },
         //if pluginConfig.useAPI = false
         data:{
@@ -127,7 +128,7 @@ export default {
 
         return{
             //attributes
-            noUserImg: require('@/assets/no-user-img.png'),
+            noUserImg: props.pluginConfig.noUserImage, 
             comments,
             commentsLoaded,
             commentInput,
