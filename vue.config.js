@@ -1,19 +1,4 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true,
-  chainWebpack: config => {
-    config.module
-      .rule('images')
-      .use('url-loader')
-      .loader('url-loader')
-      .tap(options => {
-        if (options === undefined || options === null) {
-          options = {};
-        }
-        options.limit = Infinity;
-        return options;
-      });
-  },
-  publicPath: '/dist/'
-  
+  transpileDependencies: true
 })
