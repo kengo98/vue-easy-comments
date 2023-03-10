@@ -1,6 +1,6 @@
 
 import useEasyComments from './composables/useEasyComments'
-import { onBeforeMount, watch } from 'vue';
+import { onBeforeMount } from 'vue';
 import componentConfig from './componentConfig'
 
 
@@ -29,19 +29,7 @@ export default {
             responseSetup: {
                 onGet: Array,
                 onPost: Array
-            },   //setup for response
-            //if response from server when retrieve data with GET is like 
-            //{
-            //  message: "this is a response from server"
-            //  comment: {
-            //     id: 1   
-            //     text: "this is a new comment"
-            //     userId: 10
-            //     userName: "myUserName"
-            //     profilePicture: "https://example.com/image.jpg" 
-            //  }
-            //}
-            // reponseSetup: { onGet: ["comment"] }
+            }, 
             developmentMode: Boolean
         },
 

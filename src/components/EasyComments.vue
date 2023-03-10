@@ -29,14 +29,13 @@
                             </div>
                         </div> 
                     </div>
-                     
                     
                     <div class="response-wrapper">
                         <div class="comments-response" v-for="response in comment.responses" :key="response.id" :id="'comment_'+response.id" tabindex="0">
                             <div class="top-wrapper">
-                                <div v-if="response.userPicture != null" class="comments-image-wrapper">
-                                    <img v-if="response.userPicture == ''" class="comments-user-image" :src="noUserImg" alt="">
-                                    <img v-if="response.userPicture != ''" class="comments-user-image" :src="response.userPicture" alt="">
+                                <div v-if="(response.userPicture != '' && response.userPicture != null) || noUserImg" class="comments-image-wrapper">
+                                    <img v-if="(response.userPicture == '' || response.userPicture == null) && noUserImg" class="comments-user-image" :src="noUserImg" alt="">
+                                    <img v-if="response.userPicture != '' && response.userPicture != null" class="comments-user-image" :src="response.userPicture" alt="">
                                 </div>
                                 <div class="comments-text">
                                 <strong>{{ response.userName }}: <div class="inline c-primary">@{{response.replyingTo}}</div> </strong> {{ response.text }} 

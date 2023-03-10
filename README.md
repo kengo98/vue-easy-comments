@@ -20,13 +20,15 @@ $ yarn add @kengo98/vue-easy-comments
     <EasyComments
     :pluginConfig="pluginConfig"
     :apiConfig="apiConfig"
+    :attrNameConfig=attrNameConfig
     >
     </EasyComments>
 </template>
 
 <script>
 
-import EasyComments from '@kengo98/EasyComments.vue';
+import EasyComments from '@kengo98/vue-easy-comments'
+import '@kengo98/vue-easy-comments/dist/vue-easy-comments.css'
 
 export default {
   name: 'App',
@@ -35,6 +37,15 @@ export default {
   },
   data(){
     return{
+        attrNameConfig: {
+          id: "id",
+          text:"comment", 
+          userName: "personName",
+          userPicture: "photo",
+          dateCreated: "createdAt",
+          userId: "userId",
+          commentId: "commentId"
+        },
         pluginConfig: {
             useAPI: true
         },
